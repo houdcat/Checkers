@@ -30,6 +30,7 @@ public class Menu implements ActionListener{
         this.title.setFont(new Font("Georgia", Font.BOLD, 72));
         this.title.setBounds(0,0,750,275);
         this.title.setHorizontalAlignment(SwingConstants.CENTER);
+        this.title.setForeground(Color.BLACK);
 
 
         this.rulesButton.setFocusable(false);
@@ -53,6 +54,7 @@ public class Menu implements ActionListener{
         this.playButton.setBounds(250,300, 250, 150);
         this.playButton.setBorder(border);
         this.playButton.setFont(new Font("Futura", Font.BOLD, 40));
+        this.playButton.addActionListener(this);
 
         this.exitButton.addActionListener(e -> System.exit(0));
 
@@ -72,6 +74,9 @@ public class Menu implements ActionListener{
         if(e.getSource()==rulesButton){
             menuFrame.dispose();
             new Rules();
+        }else if(e.getSource()==playButton){
+            menuFrame.dispose();
+            new Lobby();
         }
     }
 }

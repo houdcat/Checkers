@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 public class Rules implements ActionListener { // menu for rules
     JFrame rulesFrame = new JFrame("Checkers");
     JButton backButton = new JButton("Back to main menu");
+    JLabel rulesLabel = new JLabel("Rules");
 
     Rules(){
         this.rulesFrame.setSize(750, 750);
