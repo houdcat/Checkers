@@ -4,22 +4,25 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class Lobby implements ActionListener {
-    JFrame lobbyFrame = new JFrame("Checkers");
-    JButton player1button = new JButton("Choose Name");
-    JButton player2button = new JButton("Choose Name");
-    JLabel gameSettings = new JLabel("Game Settings");
-    JLabel red = new JLabel("Red");
-    JLabel blue = new JLabel("Blue");
-    Border border = new LineBorder(Color.BLACK, 3);
-    JRadioButton player1checkbox = new JRadioButton ();
-    JRadioButton  player2checkbox = new JRadioButton ();
-    ButtonGroup turnChoice = new ButtonGroup();
-    JLabel player1turn = new JLabel("First turn");
-    JLabel player2turn = new JLabel("First turn");
-    JButton backButton = new JButton("Back");
-    JButton startButton = new JButton("Start Game");
+    JFrame lobbyFrame = new JFrame("Checkers"); // JFrame for Game Settings menu/lobby
+    JButton player1button = new JButton("Choose Name"); // Button to choose the name of Player 1
+    JButton player2button = new JButton("Choose Name"); // Button to choose the name of Player 2
+    JLabel gameSettings = new JLabel("Game Settings"); // Title of the section
+    JLabel red = new JLabel("Red"); // Red label
+    JLabel blue = new JLabel("Blue"); // Blue label
+    Border border = new LineBorder(Color.BLACK, 3); // Border used for all buttons
+    JRadioButton player1checkbox = new JRadioButton ();// Checkbox for first turn for player 1
+    JRadioButton  player2checkbox = new JRadioButton ();// Checkbox for first turn for player 2
+    ButtonGroup turnChoice = new ButtonGroup(); // Button group for radio buttons used to pick the first turn, so that only one may be picked
+    JLabel player1turn = new JLabel("First turn"); // Label indicating that Player 1 will be starting
+    JLabel player2turn = new JLabel("First turn"); // Label indicating that Player 2 will be starting
+    JButton backButton = new JButton("Back"); // Button to exit back to menu
+    JButton startButton = new JButton("Start Game"); // Starts the game
+    JButton coinflipButton = new JButton("Decide first turn randomly"); // Decides the first turn randomly
+    Random r = new Random();
 
     Player p1 = new Player("", false);
     Player p2 = new Player("", false);
@@ -96,8 +99,24 @@ public class Lobby implements ActionListener {
         this.backButton.setBorder(border);
         this.backButton.setFont(new Font("Futura", Font.BOLD, 40));
         this.backButton.addActionListener(this);
+        this.backButton.setForeground(Color.BLACK);
 
+        this.startButton.setFocusable(false);
+        this.startButton.setBorder(BorderFactory.createEtchedBorder());
+        this.startButton.setBackground(Color.white);
+        this.startButton.setBounds(210,440, 330, 130);
+        this.startButton.setBorder(border);
+        this.startButton.setFont(new Font("Futura", Font.BOLD, 40));
+        this.startButton.addActionListener(this);
+        this.startButton.setForeground(Color.BLACK);
 
+        this.coinflipButton.setFocusable(false);
+        this.coinflipButton.setBorder(BorderFactory.createEtchedBorder());
+        this.coinflipButton.setBackground(Color.white);
+        this.coinflipButton.setBounds(105,295, 540, 65);
+        this.coinflipButton.setBorder(border);
+        this.coinflipButton.setFont(new Font("Futura", Font.BOLD, 40));
+        this.coinflipButton.addActionListener(this);
 
         this.lobbyFrame.add(gameSettings);
         this.lobbyFrame.add(red);
@@ -109,6 +128,8 @@ public class Lobby implements ActionListener {
         this.lobbyFrame.add(player1turn);
         this.lobbyFrame.add(player2turn);
         this.lobbyFrame.add(backButton);
+        this.lobbyFrame.add(startButton);
+        this.lobbyFrame.add(coinflipButton);
 
         this.lobbyFrame.setVisible(true);
 
@@ -147,6 +168,27 @@ public class Lobby implements ActionListener {
             lobbyFrame.dispose();
             new Menu();
         }
+        if(e.getSource()==coinflipButton){
+            if(r.nextInt(2) == 0){
+                player2turn.setVisible(false);
+                player1turn.setVisible(true);
+                p1.setTurn(true);
+                p2.setTurn(false);
+                player1checkbox.setSelected(true);
+                JOptionPane.showMessageDialog(null, "Red goes first!", "Turn decided", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else if(r.nextInt(2) == 1){
+                player1turn.setVisible(false);
+                player2turn.setVisible(true);
+                p2.setTurn(true);
+                p1.setTurn(false);
+                player2checkbox.setSelected(true);
+                JOptionPane.showMessageDialog(null, "Blue goes first!","Turn decided", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        if(e.getSource()==startButton){
+            lobbyFrame.dispose();
+            new Game();
+        }
     }
-
 }
