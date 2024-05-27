@@ -3,5 +3,7 @@ public class Main {
         new Menu();
 
         //TODO: mozna jde border referovat mezi tridama a ne vzdy vytvaret novej
+        //TODO: backgrounds
+        //TODO:
     }
 }

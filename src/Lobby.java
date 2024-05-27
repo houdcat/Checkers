@@ -101,9 +101,9 @@ public class Lobby implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==player1button){
-
+            JOptionPane.showInputDialog(null, "Name: ");
         }else if(e.getSource()==player2button){
-
+            JOptionPane.showInputDialog(null, "Name: ");
         }
         if(e.getSource()==player1checkbox){
             player2turn.setVisible(false);

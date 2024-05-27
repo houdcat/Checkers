@@ -15,7 +15,6 @@ public class Menu implements ActionListener{
     Border border = new LineBorder(Color.BLACK, 3);
 
 
-
     Menu(){
         this.menuFrame.setSize(750, 750);
         this.menuFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -24,7 +23,6 @@ public class Menu implements ActionListener{
         ImageIcon icon = new ImageIcon("icon.png");
         this.menuFrame.setIconImage(icon.getImage());
         this.menuFrame.setResizable(false);
-
 
 
         this.title.setFont(new Font("Georgia", Font.BOLD, 72));
@@ -40,6 +38,7 @@ public class Menu implements ActionListener{
         this.rulesButton.setBorder(border);
         this.rulesButton.setFont(new Font("Futura", Font.BOLD, 30));
         this.rulesButton.addActionListener(this);
+        this.rulesButton.setForeground(Color.BLACK);
 
         this.exitButton.setFocusable(false);
         this.exitButton.setBorder(BorderFactory.createEtchedBorder());
@@ -47,6 +46,7 @@ public class Menu implements ActionListener{
         this.exitButton.setBounds(400,500, 200, 100);
         this.exitButton.setBorder(border);
         this.exitButton.setFont(new Font("Futura", Font.BOLD, 30));
+        this.exitButton.setForeground(Color.BLACK);
 
         this.playButton.setFocusable(false);
         this.playButton.setBorder(BorderFactory.createEtchedBorder());
@@ -55,6 +55,7 @@ public class Menu implements ActionListener{
         this.playButton.setBorder(border);
         this.playButton.setFont(new Font("Futura", Font.BOLD, 40));
         this.playButton.addActionListener(this);
+        this.playButton.setForeground(Color.BLACK);
 
         this.exitButton.addActionListener(e -> System.exit(0));
 
