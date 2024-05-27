@@ -15,6 +15,11 @@ public class Player {
         this.name = name;
     }
 
-    Player p1 = new Player("", false);
-    Player p2 = new Player("", false);
+    public boolean isTurn() {
+        return isTurn;
+    }
+
+    public void setTurn(boolean turn) {
+        isTurn = turn;
+    }
 }

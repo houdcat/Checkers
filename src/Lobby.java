@@ -18,6 +18,13 @@ public class Lobby implements ActionListener {
     ButtonGroup turnChoice = new ButtonGroup();
     JLabel player1turn = new JLabel("First turn");
     JLabel player2turn = new JLabel("First turn");
+    JButton backButton = new JButton("Back");
+    JButton startButton = new JButton("Start Game");
+
+    Player p1 = new Player("", false);
+    Player p2 = new Player("", false);
+    String p1name;
+    String p2name;
 
 
     ImageIcon emptyCircle = new ImageIcon(new ImageIcon("empty_circle.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
@@ -82,6 +89,15 @@ public class Lobby implements ActionListener {
         this.player2turn.setFont(new Font("Futura", Font.BOLD, 25));
         this.player2turn.setVisible(false);
 
+        this.backButton.setFocusable(false);
+        this.backButton.setBorder(BorderFactory.createEtchedBorder());
+        this.backButton.setBackground(Color.white);
+        this.backButton.setBounds(260,595, 230, 90);
+        this.backButton.setBorder(border);
+        this.backButton.setFont(new Font("Futura", Font.BOLD, 40));
+        this.backButton.addActionListener(this);
+
+
 
         this.lobbyFrame.add(gameSettings);
         this.lobbyFrame.add(red);
@@ -92,6 +108,7 @@ public class Lobby implements ActionListener {
         this.lobbyFrame.add(player2checkbox);
         this.lobbyFrame.add(player1turn);
         this.lobbyFrame.add(player2turn);
+        this.lobbyFrame.add(backButton);
 
         this.lobbyFrame.setVisible(true);
 
@@ -100,17 +117,36 @@ public class Lobby implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==player1button){
-            JOptionPane.showInputDialog(null, "Name: ");
-        }else if(e.getSource()==player2button){
-            JOptionPane.showInputDialog(null, "Name: ");
+        if(e.getSource() == player1button){
+            p1name = JOptionPane.showInputDialog(null, "Name:", p1name);
+            if(p1name != null && p1name.matches("^[a-zA-Z0-9](?:[a-zA-Z0-9 ]{0,13}[a-zA-Z0-9])?$")){
+                p1.setName(p1name);
+            } else if (p1name != null) {
+                JOptionPane.showMessageDialog(null, "Invalid Name");
+            }
+        } else if(e.getSource() == player2button){
+            p2name = JOptionPane.showInputDialog(null, "Name:", p2name);
+            if(p2name != null && p2name.matches("^[a-zA-Z0-9](?:[a-zA-Z0-9 ]{0,13}[a-zA-Z0-9])?$")){
+                p2.setName(p2name);
+            } else if (p2name != null) {
+                JOptionPane.showMessageDialog(null, "Invalid Name");
+            }
         }
-        if(e.getSource()==player1checkbox){
+        if(e.getSource() == player1checkbox){
             player2turn.setVisible(false);
             player1turn.setVisible(true);
-        }else if(e.getSource()==player2checkbox){
+            p1.setTurn(true);
+            p2.setTurn(false);
+        } else if(e.getSource() == player2checkbox){
             player1turn.setVisible(false);
             player2turn.setVisible(true);
+            p2.setTurn(true);
+            p1.setTurn(false);
+        }
+        if (e.getSource()==backButton){
+            lobbyFrame.dispose();
+            new Menu();
         }
     }
+
 }
