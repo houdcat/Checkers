@@ -9,6 +9,7 @@ public class Rules implements ActionListener { // menu for rules
     JFrame rulesFrame = new JFrame("Checkers");
     JButton backButton = new JButton("Back to main menu");
     JLabel rulesLabel = new JLabel("Rules");
+    JLabel rulesBlock = new JLabel();
 
     Rules(){
         this.rulesFrame.setSize(750, 750);
@@ -25,12 +26,25 @@ public class Rules implements ActionListener { // menu for rules
         this.backButton.setFocusable(false);
         this.backButton.setBorder(BorderFactory.createEtchedBorder());
         this.backButton.setBackground(Color.white);
-        this.backButton.setBounds(125,550, 500, 110);
+        this.backButton.setBounds(125,570, 500, 110);
         this.backButton.setBorder(border);
         this.backButton.setFont(new Font("Futura", Font.BOLD, 40));
         this.backButton.addActionListener(this);
 
+        this.rulesLabel.setFont(new Font("Georgia", Font.BOLD, 72));
+        this.rulesLabel.setBounds(0,0,750,100);
+        this.rulesLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        this.rulesLabel.setForeground(Color.BLACK);
+
+        this.rulesBlock.setText("<html> 1. The player that goes first can be picked manually or decided randomly via a coin flip<br><br>2. Regular pieces can only move forward diagonally on dark squares<br><br>3. Pieces are captured by jumping over them<br><br>4. If a regular piece reaches the other side of the board, it turns into a King.A king can move diagonally forward and back<br><br>5. Both players have a time limit of 5 minutes that depletes while it is their turn. If the timer reaches 0, the player loses</html>");
+        this.rulesBlock.setBounds(20,65,700,500);
+        this.rulesBlock.setFont(new Font("Futura", Font.BOLD, 24));
+
+
+
         this.rulesFrame.add(backButton);
+        this.rulesFrame.add(rulesBlock);
+        this.rulesFrame.add(rulesLabel);
     }
 
 

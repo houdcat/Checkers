@@ -13,8 +13,15 @@ public class Lobby implements ActionListener {
     JLabel red = new JLabel("Red");
     JLabel blue = new JLabel("Blue");
     Border border = new LineBorder(Color.BLACK, 3);
-    JCheckBox player1checkbox = new JCheckBox();
-    JCheckBox player2checkbox = new JCheckBox();
+    JRadioButton player1checkbox = new JRadioButton ();
+    JRadioButton  player2checkbox = new JRadioButton ();
+    ButtonGroup turnChoice = new ButtonGroup();
+    JLabel player1turn = new JLabel("First turn");
+    JLabel player2turn = new JLabel("First turn");
+
+
+    ImageIcon emptyCircle = new ImageIcon(new ImageIcon("empty_circle.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
+    ImageIcon fullCircle = new ImageIcon(new ImageIcon("full_circle.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));;
 
     Lobby(){
         this.lobbyFrame.setSize(750, 750);
@@ -54,12 +61,27 @@ public class Lobby implements ActionListener {
         this.player2button.setFont(new Font("Futura", Font.BOLD, 40));
         this.player2button.addActionListener(this);
 
-        this.player1checkbox.setBorder(BorderFactory.createEtchedBorder());
-        this.player1checkbox.setBackground(Color.white);
-        this.player1checkbox.setFocusable(false);
-        this.player1checkbox.setBorder(border);
+        this.turnChoice.add(player1checkbox);
+        this.turnChoice.add(player2checkbox);
+
+        this.player1checkbox.setBounds(470,150,50,50);
+        this.player1checkbox.setIcon(emptyCircle);
+        this.player1checkbox.setSelectedIcon(fullCircle);
+        this.player1checkbox.setSelected(true);
         this.player1checkbox.addActionListener(this);
-        this.player1checkbox.setBounds(50,50,100,100);
+
+        this.player2checkbox.setBounds(470,220,50,50);
+        this.player2checkbox.setIcon(emptyCircle);
+        this.player2checkbox.setSelectedIcon(fullCircle);
+        this.player2checkbox.addActionListener(this);
+
+        this.player1turn.setBounds(540,150,200,50);
+        this.player1turn.setFont(new Font("Futura", Font.BOLD, 25));
+
+        this.player2turn.setBounds(540,220,200,50);
+        this.player2turn.setFont(new Font("Futura", Font.BOLD, 25));
+        this.player2turn.setVisible(false);
+
 
         this.lobbyFrame.add(gameSettings);
         this.lobbyFrame.add(red);
@@ -68,6 +90,8 @@ public class Lobby implements ActionListener {
         this.lobbyFrame.add(player2button);
         this.lobbyFrame.add(player1checkbox);
         this.lobbyFrame.add(player2checkbox);
+        this.lobbyFrame.add(player1turn);
+        this.lobbyFrame.add(player2turn);
 
         this.lobbyFrame.setVisible(true);
 
@@ -80,6 +104,13 @@ public class Lobby implements ActionListener {
 
         }else if(e.getSource()==player2button){
 
+        }
+        if(e.getSource()==player1checkbox){
+            player2turn.setVisible(false);
+            player1turn.setVisible(true);
+        }else if(e.getSource()==player2checkbox){
+            player1turn.setVisible(false);
+            player2turn.setVisible(true);
         }
     }
 }
