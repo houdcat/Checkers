@@ -1,3 +1,3 @@
 public enum PieceType {
-    MAN, KING
+    MAN, KING, NONE
 }

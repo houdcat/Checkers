@@ -26,8 +26,8 @@ public class Lobby implements ActionListener {
 
     Player p1 = new Player("", false);
     Player p2 = new Player("", false);
-    String p1name;
-    String p2name;
+    String p1name = "Player 1";
+    String p2name = "Player 2";
 
 
     ImageIcon emptyCircle = new ImageIcon(new ImageIcon("empty_circle.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
