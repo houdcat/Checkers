@@ -26,6 +26,8 @@ public class Lobby implements ActionListener {
 
     Player p1 = new Player("", false);
     Player p2 = new Player("", false);
+
+
     String p1name = "Player 1";
     String p2name = "Player 2";
 
@@ -138,57 +140,59 @@ public class Lobby implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == player1button){
+        if (e.getSource() == player1button) {
             p1name = JOptionPane.showInputDialog(null, "Name:", p1name);
-            if(p1name != null && p1name.matches("^[a-zA-Z0-9](?:[a-zA-Z0-9 ]{0,13}[a-zA-Z0-9])?$")){
-                p1.setName(p1name);
+            if (p1name != null && p1name.matches("^[a-zA-Z0-9](?:[a-zA-Z0-9 ]{0,13}[a-zA-Z0-9])?$")) {
+                this.p1.setName(p1name);
             } else if (p1name != null) {
                 JOptionPane.showMessageDialog(null, "Invalid Name");
             }
-        } else if(e.getSource() == player2button){
+        } else if (e.getSource() == player2button) {
             p2name = JOptionPane.showInputDialog(null, "Name:", p2name);
-            if(p2name != null && p2name.matches("^[a-zA-Z0-9](?:[a-zA-Z0-9 ]{0,13}[a-zA-Z0-9])?$")){
+            if (p2name != null && p2name.matches("^[a-zA-Z0-9](?:[a-zA-Z0-9 ]{0,13}[a-zA-Z0-9])?$")) {
                 p2.setName(p2name);
             } else if (p2name != null) {
                 JOptionPane.showMessageDialog(null, "Invalid Name");
             }
         }
-        if(e.getSource() == player1checkbox){
+        if (e.getSource() == player1checkbox) {
             player2turn.setVisible(false);
             player1turn.setVisible(true);
             p1.setTurn(true);
             p2.setTurn(false);
-        } else if(e.getSource() == player2checkbox){
+        } else if (e.getSource() == player2checkbox) {
             player1turn.setVisible(false);
             player2turn.setVisible(true);
             p2.setTurn(true);
             p1.setTurn(false);
         }
-        if (e.getSource()==backButton){
+        if (e.getSource() == backButton) {
             lobbyFrame.dispose();
             new Menu();
         }
-        if(e.getSource()==coinflipButton){
-            if(r.nextInt(2) == 0){
+        if (e.getSource() == coinflipButton) {
+            if (r.nextInt(2) == 0) {
                 player2turn.setVisible(false);
                 player1turn.setVisible(true);
                 p1.setTurn(true);
                 p2.setTurn(false);
                 player1checkbox.setSelected(true);
                 JOptionPane.showMessageDialog(null, "Red goes first!", "Turn decided", JOptionPane.INFORMATION_MESSAGE);
-            }
-            else if(r.nextInt(2) == 1){
+            } else if (r.nextInt(2) == 1) {
                 player1turn.setVisible(false);
                 player2turn.setVisible(true);
                 p2.setTurn(true);
                 p1.setTurn(false);
                 player2checkbox.setSelected(true);
-                JOptionPane.showMessageDialog(null, "Blue goes first!","Turn decided", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Blue goes first!", "Turn decided", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-        if(e.getSource()==startButton){
+        if (e.getSource() == startButton) {
             lobbyFrame.dispose();
-            new Game();
+            Game game = new Game();
+            p1.setName(p1name);
+            p2.setName(p2name);
+            game.setVisiblePlayerNames(p1.getName(), p2.getName());
         }
     }
 }

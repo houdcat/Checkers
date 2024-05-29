@@ -6,6 +6,6 @@ public class Main {
 
         //TODO: mozna jde border referovat mezi tridama a ne vzdy vytvaret novej
         //TODO: backgrounds
-        //TODO:
+        //TODO: package images
     }
 }
