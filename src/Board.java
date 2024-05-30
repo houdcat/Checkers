@@ -109,6 +109,7 @@ public class Board extends JPanel {
                                     }else{
                                         game.p2pieces--;
                                         game.p2piecesLabel.setText(game.p2pieces + "");
+                                        game.checkVictoryByElimination();
                                     }
                                 }
                             }
@@ -118,8 +119,8 @@ public class Board extends JPanel {
                         }
                     }
                 }
-
                 Board.this.repaint();
+                game.checkVictoryByElimination();
 
 
             }
