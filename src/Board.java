@@ -17,6 +17,9 @@ public class Board extends JPanel {
             }
         }
     }
+    private void createPieces(){
+
+    }
 
     public Board() {
         this.setLayout(new GridLayout(boardSize, boardSize));

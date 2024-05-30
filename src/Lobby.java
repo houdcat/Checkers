@@ -62,7 +62,7 @@ public class Lobby implements ActionListener {
         this.player1button.setBackground(Color.white);
         this.player1button.setFocusable(false);
         this.player1button.setBorder(border);
-        this.player1button.setFont(new Font("Futura", Font.BOLD, 40));
+        this.player1button.setFont(new Font("Futura", Font.BOLD, 25));
         this.player1button.addActionListener(this);
 
         this.player2button.setBounds(160,220,300,50);
@@ -70,7 +70,7 @@ public class Lobby implements ActionListener {
         this.player2button.setBackground(Color.white);
         this.player2button.setFocusable(false);
         this.player2button.setBorder(border);
-        this.player2button.setFont(new Font("Futura", Font.BOLD, 40));
+        this.player2button.setFont(new Font("Futura", Font.BOLD, 25));
         this.player2button.addActionListener(this);
 
         this.turnChoice.add(player1checkbox);
@@ -144,15 +144,19 @@ public class Lobby implements ActionListener {
             p1name = JOptionPane.showInputDialog(null, "Name:", p1name);
             if (p1name != null && p1name.matches("^[a-zA-Z0-9](?:[a-zA-Z0-9 ]{0,13}[a-zA-Z0-9])?$")) {
                 this.p1.setName(p1name);
+                player1button.setText(p1name);
             } else if (p1name != null) {
                 JOptionPane.showMessageDialog(null, "Invalid Name");
+                p1name = "Player 1";
             }
         } else if (e.getSource() == player2button) {
             p2name = JOptionPane.showInputDialog(null, "Name:", p2name);
             if (p2name != null && p2name.matches("^[a-zA-Z0-9](?:[a-zA-Z0-9 ]{0,13}[a-zA-Z0-9])?$")) {
                 p2.setName(p2name);
+                player2button.setText(p2name);
             } else if (p2name != null) {
                 JOptionPane.showMessageDialog(null, "Invalid Name");
+                p2name = "Player 2";
             }
         }
         if (e.getSource() == player1checkbox) {
