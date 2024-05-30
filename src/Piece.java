@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Piece {
     private PieceColor color;
@@ -30,10 +31,22 @@ public class Piece {
         }else{
             side = 1;
         }
-        if(Board.isMoveValid(x -1,y + side)){
+        if(Board.isMoveValid(x -1,y + side)&&board.getBoard()[y + side][x - 1] ==null){ // checks if the tile exists on the board and if it's empty
             moves.add(new Move(x -1,y + side));
-        }if(Board.isMoveValid(x + 1,y + side)){
+        }else if(
+                Board.isMoveValid(x -1,y + side) && board.getBoard()[y + side][x - 1] != null &&
+                Board.isMoveValid(x -2,y + side * 2) && board.getBoard()[y + side * 2][x - 2] == null
+        ){
+            moves.add(new Move(x -2,y + side * 2, new ArrayList<>(List.of(new Move(x -1,y + side)))));
+        }
+
+        if(Board.isMoveValid(x + 1,y + side)&&board.getBoard()[y + side][x + 1] ==null){
             moves.add(new Move(x + 1,y + side));
+        }else if(
+                Board.isMoveValid(x +1,y + side) && board.getBoard()[y + side][x + 1] != null &&
+                Board.isMoveValid(x +2,y + side * 2) && board.getBoard()[y + side * 2][x + 2] == null
+        ){
+            moves.add(new Move(x + 2,y + side * 2, new ArrayList<>(List.of(new Move(x + 1,y + side)))));
         }
         return moves;
     }

@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 public class Board extends JPanel {
 
@@ -49,6 +50,11 @@ public class Board extends JPanel {
                     if(game.hasSelected && game.selectedx == x && game.selectedy == y){
                         g2.setColor(Color.CYAN);
                     }
+                    for(Move move : game.availableMoves ){
+                        if(move.getX() == x && move.getY() == y){
+                            g2.setColor(Color.YELLOW);
+                        }
+                    }
                     g2.fillRect(realx, realy, TILESIZE, TILESIZE);
                 }
                 if(piece != null){
@@ -79,13 +85,27 @@ public class Board extends JPanel {
                         game.hasSelected = true;
                         game.selectedx = boardx;
                         game.selectedy = boardy;
-
+                        game.availableMoves = piece.generateMoves(Board.this, boardx, boardy);
                     }
                     else if(piece.getPieceColor() == PieceColor.RED && !game.blueTurn){
                         game.hasSelected = true;
                         game.selectedx = boardx;
                         game.selectedy = boardy;
-
+                        game.availableMoves = piece.generateMoves(Board.this, boardx, boardy);
+                    }
+                }else{
+                    for(Move move : game.availableMoves){
+                        if(move.getX() == boardx && move.getY() == boardy){
+                            Piece selectedPiece = board[game.selectedy][game.selectedx];
+                            board[game.selectedy][game.selectedx] = null;
+                            board[move.getY()][move.getX()] = selectedPiece;
+                            for(Move deleted : move.deletedPlaces){
+                                board[deleted.getY()][deleted.getX()] = null;
+                            }
+                            game.availableMoves = new ArrayList<Move>();
+                            game.hasSelected = false;
+                            game.blueTurn = !game.blueTurn;
+                        }
                     }
                 }
 
