@@ -2,12 +2,13 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Game {
     JFrame gameFrame = new JFrame();
     JPanel gamePanel = new JPanel();
     Border border = new LineBorder(Color.BLACK, 3); // Border used for all buttons
-    Board board = new Board();
+    Board board = new Board(this);
     JLabel p1nameLabel = new JLabel();
     JLabel p2nameLabel = new JLabel();
     JLabel p1piecesLabel = new JLabel();
@@ -17,19 +18,22 @@ public class Game {
         p1nameLabel.setText(p1name);
         p2nameLabel.setText(p2name);
     }
-    public void setVisiblePiecesCounts(int p1pieces, int p2pieces){
-        p1piecesLabel.setText(p1pieces + "");
-        p2piecesLabel.setText(p1pieces + "");
-    }
+    Lobby lobby;
+
+    boolean blueTurn = true;
+    boolean hasSelected;
+    int selectedx;
+    int selectedy;
+    ArrayList<Move> availableMoves = new ArrayList<>();
 
 
-    public void checkPiecesCount(int p1pieces, int p2pieces){
-        if(p1pieces == 0){
 
-        }
-    }
 
-    Game() {
+
+
+    Game(Lobby lobby) {
+        this.lobby = lobby;
+
         this.gameFrame.setSize(1300, 1000);
         this.gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.gameFrame.setLayout(null);
@@ -60,5 +64,9 @@ public class Game {
         this.gameFrame.add(p2nameLabel);
 
         this.gameFrame.setVisible(true);
+
+        if(lobby.p1.isTurn()){
+            blueTurn = false;
+        }
     }
 }

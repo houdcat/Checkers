@@ -12,7 +12,6 @@ public class Player {
         this.piecesCount = piecesCount;
     }
 
-
     public Player(String name, boolean isTurn) {
         this.name = name;
         this.isTurn = isTurn;

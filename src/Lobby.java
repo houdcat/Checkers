@@ -193,7 +193,7 @@ public class Lobby implements ActionListener {
         }
         if (e.getSource() == startButton) {
             lobbyFrame.dispose();
-            Game game = new Game();
+            Game game = new Game(this);
             p1.setName(p1name);
             p2.setName(p2name);
             game.setVisiblePlayerNames(p1.getName(), p2.getName());
