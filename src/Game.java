@@ -12,7 +12,7 @@ public class Game {
     JLabel p1nameLabel = new JLabel();
     JLabel p2nameLabel = new JLabel();
 
-    int p1pieces = 1;
+    int p1pieces = 12;
     int p2pieces = 12;
     boolean p1winner = false;
     boolean p2winner = false;
@@ -44,6 +44,32 @@ public class Game {
             }
             showEndScreen();
         }
+    }
+    public void checkVictoryByNoMoves(){
+        boolean blueHasMoves = hasAvailableMoves(PieceColor.BLUE);
+        boolean redHasMoves = hasAvailableMoves(PieceColor.RED);
+        if(!blueHasMoves || !redHasMoves){
+            if(!blueHasMoves){
+                p1winner = true;
+            }else if(!redHasMoves){
+                p2winner = true;
+            }
+            showEndScreen();
+        }
+    }
+    public boolean hasAvailableMoves(PieceColor color) {
+        for (int y = 0; y < Board.BOARDSIZE; y++) {
+            for (int x = 0; x < Board.BOARDSIZE; x++) {
+                Piece piece = board.getBoard()[y][x];
+                if (piece != null && piece.getPieceColor() == color) {
+                    ArrayList<Move> moves = piece.generateMoves(board, x, y);
+                    if (!moves.isEmpty()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     Lobby lobby;

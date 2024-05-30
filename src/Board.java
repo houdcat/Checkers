@@ -121,6 +121,7 @@ public class Board extends JPanel {
                 }
                 Board.this.repaint();
                 game.checkVictoryByElimination();
+                game.checkVictoryByNoMoves();
 
 
             }

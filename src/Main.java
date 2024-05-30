@@ -7,7 +7,6 @@ public class Main {
         //TODO: mozna jde border referovat mezi tridama a ne vzdy vytvaret novej
         //TODO: backgrounds
         //TODO: package images
-        //TODO: pieces count and lose to losing all pieces
         //TODO: forfeit when no more moves are available
         //TODO: capture more pieces after first capture move
         //TODO: timer

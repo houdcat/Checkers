@@ -1,7 +1,6 @@
 public class Player {
     private String name;
     private boolean isTurn;
-    private boolean winner = false;
 
 
     public Player(String name, boolean isTurn) {
