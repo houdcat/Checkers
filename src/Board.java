@@ -100,7 +100,17 @@ public class Board extends JPanel {
                             board[game.selectedy][game.selectedx] = null;
                             board[move.getY()][move.getX()] = selectedPiece;
                             for(Move deleted : move.deletedPlaces){
+                                Piece capturedPiece = board[deleted.getY()][deleted.getX()];
                                 board[deleted.getY()][deleted.getX()] = null;
+                                if(capturedPiece != null){
+                                    if(capturedPiece.getPieceColor() == PieceColor.RED){
+                                        game.p1pieces--;
+                                        game.p1piecesLabel.setText(game.p1pieces + "");
+                                    }else{
+                                        game.p2pieces--;
+                                        game.p2piecesLabel.setText(game.p2pieces + "");
+                                    }
+                                }
                             }
                             game.availableMoves = new ArrayList<Move>();
                             game.hasSelected = false;
@@ -109,7 +119,6 @@ public class Board extends JPanel {
                     }
                 }
 
-                System.out.println(boardx + ":" + boardy);
                 Board.this.repaint();
 
 

@@ -1,16 +1,8 @@
 public class Player {
     private String name;
     private boolean isTurn;
-    private int piecesCount;
-    private boolean winner;
+    private boolean winner = false;
 
-    public int getPiecesCount() {
-        return piecesCount;
-    }
-
-    public void setPiecesCount(int piecesCount) {
-        this.piecesCount = piecesCount;
-    }
 
     public Player(String name, boolean isTurn) {
         this.name = name;

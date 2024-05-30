@@ -135,9 +135,7 @@ public class Lobby implements ActionListener {
 
         this.lobbyFrame.setVisible(true);
 
-
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == player1button) {
