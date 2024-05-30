@@ -64,6 +64,11 @@ public class Board extends JPanel {
                     margin = 15;
                     g2.setColor(piece.getColor().darker());
                     g2.fillOval(realx + margin, realy + margin, TILESIZE-(margin*2), TILESIZE-(margin*2));
+                    if(piece.isKing()){
+                        margin = 38;
+                        g2.setColor(Color.BLACK);
+                        g2.fillOval(realx + margin, realy + margin, TILESIZE - (margin*2), TILESIZE - (margin*2));
+                    }
                 }
             }
         }
@@ -80,51 +85,54 @@ public class Board extends JPanel {
                 int boardx = e.getX() / TILESIZE;
                 int boardy = e.getY() / TILESIZE;
                 Piece piece = board[boardy][boardx];
-                if(piece != null){
-                    if(piece.getPieceColor() == PieceColor.BLUE && game.blueTurn){
+                if (piece != null) {
+                    if (piece.getPieceColor() == PieceColor.BLUE && game.blueTurn) {
+                        game.hasSelected = true;
+                        game.selectedx = boardx;
+                        game.selectedy = boardy;
+                        game.availableMoves = piece.generateMoves(Board.this, boardx, boardy);
+                    } else if (piece.getPieceColor() == PieceColor.RED && !game.blueTurn) {
                         game.hasSelected = true;
                         game.selectedx = boardx;
                         game.selectedy = boardy;
                         game.availableMoves = piece.generateMoves(Board.this, boardx, boardy);
                     }
-                    else if(piece.getPieceColor() == PieceColor.RED && !game.blueTurn){
-                        game.hasSelected = true;
-                        game.selectedx = boardx;
-                        game.selectedy = boardy;
-                        game.availableMoves = piece.generateMoves(Board.this, boardx, boardy);
-                    }
-                }else{
-                    for(Move move : game.availableMoves){
-                        if(move.getX() == boardx && move.getY() == boardy){
+
+                } else {
+                    for (Move move : game.availableMoves) {
+                        if (move.getX() == boardx && move.getY() == boardy) {
                             Piece selectedPiece = board[game.selectedy][game.selectedx];
                             board[game.selectedy][game.selectedx] = null;
                             board[move.getY()][move.getX()] = selectedPiece;
-                            for(Move deleted : move.deletedPlaces){
+
+                            if ((move.getY() == 0 && selectedPiece.getPieceColor() == PieceColor.RED) ||
+                                    (move.getY() == BOARDSIZE - 1 && selectedPiece.getPieceColor() == PieceColor.BLUE)) {
+                                selectedPiece.setKing(true);
+                                System.out.println("KING");
+                            }
+                            for (Move deleted : move.deletedPlaces) {
                                 Piece capturedPiece = board[deleted.getY()][deleted.getX()];
                                 board[deleted.getY()][deleted.getX()] = null;
-                                if(capturedPiece != null){
-                                    if(capturedPiece.getPieceColor() == PieceColor.RED){
+                                if (capturedPiece != null) {
+                                    if (capturedPiece.getPieceColor() == PieceColor.RED) {
                                         game.p1pieces--;
                                         game.p1piecesLabel.setText(game.p1pieces + "");
-                                    }else{
+                                    } else {
                                         game.p2pieces--;
                                         game.p2piecesLabel.setText(game.p2pieces + "");
-                                        game.checkVictoryByElimination();
                                     }
                                 }
                             }
-                            game.availableMoves = new ArrayList<Move>();
-                            game.hasSelected = false;
-                            game.blueTurn = !game.blueTurn;
+                                game.availableMoves = new ArrayList<Move>();
+                                game.hasSelected = false;
+                                game.blueTurn = !game.blueTurn;
+                            }
                         }
                     }
+                    Board.this.repaint();
+                    game.checkVictoryByElimination();
+                    game.checkVictoryByNoMoves();
                 }
-                Board.this.repaint();
-                game.checkVictoryByElimination();
-                game.checkVictoryByNoMoves();
-
-
-            }
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -147,6 +155,4 @@ public class Board extends JPanel {
             }
         });
     }
-
-
 }

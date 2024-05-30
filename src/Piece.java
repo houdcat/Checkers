@@ -4,13 +4,21 @@ import java.util.List;
 
 public class Piece {
     private PieceColor color;
+    private boolean isKing;
     private static Color colorRed = new Color(249, 88, 105);
     private static Color colorBlue = new Color(88, 99, 249);
 
+    public void setKing(boolean king) {
+        isKing = king;
+    }
 
+    public boolean isKing() {
+        return isKing;
+    }
 
     public Piece(PieceColor color) {
         this.color = color;
+        this.isKing = false;
     }
 
     public Color getColor() {
