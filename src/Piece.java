@@ -1,11 +1,14 @@
-public class Piece {
+import java.awt.*;
 
-    private PieceType type;
+public class Piece {
     private PieceColor color;
 
-    public Piece(PieceType type, PieceColor color) {
-        if(this.color == PieceColor.RED){
+    public Piece(PieceColor color) {
+        this.color = color;
+    }
 
-        }
+    public Color getColor() {
+
+        return this.color == PieceColor.RED ? Color.RED : Color.BLUE;
     }
 }

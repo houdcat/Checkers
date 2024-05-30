@@ -8,5 +8,6 @@ public class Main {
         //TODO: backgrounds
         //TODO: package images
         //TODO: fix names
+        //TODO: mark paintcomponent jako vyhledanou
     }
 }

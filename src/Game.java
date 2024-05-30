@@ -38,7 +38,7 @@ public class Game {
         this.gameFrame.setIconImage(icon.getImage());
         this.gameFrame.setResizable(false);
 
-        this.gamePanel.setBounds(250, 75, 800, 800);
+        this.gamePanel.setBounds(250, 75, Board.BOARDSIZE * Board.TILESIZE, Board.BOARDSIZE * Board.TILESIZE);
         this.gamePanel.setBorder(BorderFactory.createEtchedBorder());
         this.gamePanel.setLayout(new BorderLayout());
         this.gamePanel.setBorder(border);
