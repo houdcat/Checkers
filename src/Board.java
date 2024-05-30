@@ -43,9 +43,16 @@ public class Board extends JPanel {
                     g2.fillRect(realx, realy, TILESIZE, TILESIZE);
                 }
                 if(piece != null){
+                    int margin = 10;
                     g2.setColor(piece.getColor());
-                }
+                    g2.fillOval(realx + margin, realy + margin, TILESIZE-(margin*2), TILESIZE-(margin*2));
+                    margin = 15;
+                    g2.setColor(piece.getColor().darker());
+                    g2.fillOval(realx + margin, realy + margin, TILESIZE-(margin*2), TILESIZE-(margin*2));
 
+
+
+                }
             }
         }
     }
