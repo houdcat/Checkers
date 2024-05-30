@@ -26,7 +26,8 @@ public class Piece {
     public ArrayList<Move> generateMoves(Board board, int x, int y){
         int side;
         ArrayList<Move> moves = new ArrayList<>();
-        if(this.getPieceColor() == PieceColor.RED){
+        PieceColor currentPieceColor = this.getPieceColor();
+        if(currentPieceColor == PieceColor.RED){
             side = -1;
         }else{
             side = 1;
@@ -35,8 +36,8 @@ public class Piece {
             moves.add(new Move(x -1,y + side));
         }else if(
                 Board.isMoveValid(x -1,y + side) && board.getBoard()[y + side][x - 1] != null &&
-                Board.isMoveValid(x -2,y + side * 2) && board.getBoard()[y + side * 2][x - 2] == null
-        ){
+                Board.isMoveValid(x -2,y + side * 2) && board.getBoard()[y + side * 2][x - 2] == null &&
+                board.getBoard()[y + side][x - 1].getPieceColor() != currentPieceColor){
             moves.add(new Move(x -2,y + side * 2, new ArrayList<>(List.of(new Move(x -1,y + side)))));
         }
 
@@ -44,7 +45,8 @@ public class Piece {
             moves.add(new Move(x + 1,y + side));
         }else if(
                 Board.isMoveValid(x +1,y + side) && board.getBoard()[y + side][x + 1] != null &&
-                Board.isMoveValid(x +2,y + side * 2) && board.getBoard()[y + side * 2][x + 2] == null
+                Board.isMoveValid(x +2,y + side * 2) && board.getBoard()[y + side * 2][x + 2] == null &&
+                board.getBoard()[y + side][x + 1].getPieceColor() != currentPieceColor
         ){
             moves.add(new Move(x + 2,y + side * 2, new ArrayList<>(List.of(new Move(x + 1,y + side)))));
         }

@@ -20,7 +20,7 @@ public class Game {
     }
     Lobby lobby;
 
-    boolean blueTurn = true;
+    boolean blueTurn = false;
     boolean hasSelected;
     int selectedx;
     int selectedy;
