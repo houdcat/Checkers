@@ -20,7 +20,7 @@ public class Menu implements ActionListener{
         this.menuFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.menuFrame.setLayout(null);
         this.menuFrame.setLocationRelativeTo(null);
-        ImageIcon icon = new ImageIcon("icon.png");
+        ImageIcon icon = new ImageIcon("src\\Images\\icon.png");
         this.menuFrame.setIconImage(icon.getImage());
         this.menuFrame.setResizable(false);
 

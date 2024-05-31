@@ -32,15 +32,15 @@ public class Lobby implements ActionListener {
     String p2name = "Player 2";
 
 
-    ImageIcon emptyCircle = new ImageIcon(new ImageIcon("empty_circle.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
-    ImageIcon fullCircle = new ImageIcon(new ImageIcon("full_circle.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));;
+    ImageIcon emptyCircle = new ImageIcon(new ImageIcon("src\\Images\\empty_circle.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
+    ImageIcon fullCircle = new ImageIcon(new ImageIcon("src\\Images\\full_circle.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));;
 
     Lobby(){
         this.lobbyFrame.setSize(750, 750);
         this.lobbyFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.lobbyFrame.setLayout(null);
         this.lobbyFrame.setLocationRelativeTo(null);
-        ImageIcon icon = new ImageIcon("icon.png");
+        ImageIcon icon = new ImageIcon("src\\Images\\icon.png");
         this.lobbyFrame.setIconImage(icon.getImage());
         this.lobbyFrame.setResizable(false);
 

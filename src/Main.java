@@ -6,7 +6,6 @@ public class Main {
 
         //TODO: mozna jde border referovat mezi tridama a ne vzdy vytvaret novej
         //TODO: backgrounds
-        //TODO: package images
         //TODO: capture more pieces after first capture move (optional)
         //TODO: timer
         //TODO: king creation and logic

@@ -16,7 +16,7 @@ public class Rules implements ActionListener { // menu for rules
         this.rulesFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.rulesFrame.setLayout(null);
         this.rulesFrame.setLocationRelativeTo(null);
-        ImageIcon icon = new ImageIcon("icon.png");
+        ImageIcon icon = new ImageIcon("src\\Images\\icon.png");
         this.rulesFrame.setIconImage(icon.getImage());
         this.rulesFrame.setResizable(false);
         this.rulesFrame.setVisible(true);

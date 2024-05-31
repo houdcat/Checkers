@@ -87,7 +87,7 @@ public class Game {
         this.gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.gameFrame.setLayout(null);
         this.gameFrame.setLocationRelativeTo(null);
-        ImageIcon icon = new ImageIcon("icon.png");
+        ImageIcon icon = new ImageIcon("src\\Images\\icon.png");
         this.gameFrame.setIconImage(icon.getImage());
         this.gameFrame.setResizable(false);
 

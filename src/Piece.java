@@ -40,7 +40,7 @@ public class Piece {
         }else{
             side = 1;
         }
-        if(Board.isMoveValid(x -1,y + side)&&board.getBoard()[y + side][x - 1] ==null){ // checks if the tile exists on the board and if it's empty
+        if(Board.isMoveValid(x -1,y + side) && board.getBoard()[y + side][x - 1] ==null){ // checks if the tile exists on the board and if it's empty
             moves.add(new Move(x -1,y + side));
         }else if(
                 Board.isMoveValid(x -1,y + side) && board.getBoard()[y + side][x - 1] != null &&
@@ -57,6 +57,9 @@ public class Piece {
                 board.getBoard()[y + side][x + 1].getPieceColor() != currentPieceColor
         ){
             moves.add(new Move(x + 2,y + side * 2, new ArrayList<>(List.of(new Move(x + 1,y + side)))));
+        }
+        if(isKing){
+
         }
         return moves;
     }
