@@ -65,9 +65,6 @@ public class Menu implements ActionListener{
         this.menuFrame.add(title);
 
         this.menuFrame.setVisible(true);
-
-
-
     }
 
     @Override

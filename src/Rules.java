@@ -36,7 +36,11 @@ public class Rules implements ActionListener { // menu for rules
         this.rulesLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.rulesLabel.setForeground(Color.BLACK);
 
-        this.rulesBlock.setText("<html> 1. The player that goes first can be picked manually or decided randomly<br><br>2. Regular pieces can only move forward by one tile diagonally on dark squares<br><br>3. Pieces are captured by jumping over them<br><br>4. If a regular piece reaches the other side of the board, it turns into a King. A king can move forward and back along the diagonal lines<br><br></html>");
+        this.rulesBlock.setText("<html> 1. The player that goes first can be picked manually or decided randomly<br>" +
+                "<br>2. Regular pieces can only move forward by one tile diagonally on dark squares<br>" +
+                "<br>3. Pieces are captured by jumping over them<br>" +
+                "<br>4. If a regular piece reaches the other side of the board, it turns into a King. A king can move forward and back along the diagonal lines<br>" +
+                "<br>5. Both players have a timer that counts down when it is their turn. If it reaches zero, the player loses<br></html>");
         this.rulesBlock.setBounds(20,65,700,500);
         this.rulesBlock.setFont(new Font("Futura", Font.BOLD, 24));
 

@@ -6,10 +6,10 @@ public class Main {
     public static void main(String[] args) {
         new Menu();
 
-        //TODO: backgrounds
         //TODO: coinflip anim?
         //TODO: docs
         //TODO: unit tests
+        //TODO: back button for game
 
 
     }

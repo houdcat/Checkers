@@ -5,9 +5,8 @@
     import java.awt.event.ActionEvent;
     import java.awt.event.ActionListener;
     import java.util.ArrayList;
-    import java.util.TimerTask;
 
-    public class Game {
+    public class Game implements ActionListener {
         JFrame gameFrame = new JFrame("Checkers");
         JPanel gamePanel = new JPanel();
         Border border = new LineBorder(Color.BLACK, 3); // Border used for all buttons
@@ -22,6 +21,12 @@
 
         JLabel p1piecesLabel = new JLabel(p1pieces + "");
         JLabel p2piecesLabel = new JLabel(p2pieces + "");
+
+        JLabel turnIndicator = new JLabel();
+        ImageIcon p1turnIndicatorImage = new ImageIcon(new ImageIcon("src\\Images\\red_turn.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+        ImageIcon p2turnIndicatorImage = new ImageIcon(new ImageIcon("src\\Images\\blue_turn.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+
+        JButton backButton = new JButton("End Game");
 
         public void showEndScreen(){
             int answer = 0;
@@ -120,20 +125,23 @@
             });
             if (blueTurn) {
                 p2timer.start();
+                turnIndicator.setIcon(p2turnIndicatorImage);
             } else {
                 p1timer.start();
+                turnIndicator.setIcon(p1turnIndicatorImage);
             }
         }
         public void switchTurns() {
             if (blueTurn) {
                 p1timer.stop();
                 p2timer.start();
+                turnIndicator.setIcon(p2turnIndicatorImage);
             } else {
                 p2timer.stop();
                 p1timer.start();
+                turnIndicator.setIcon(p1turnIndicatorImage);
             }
         }
-
 
         Game(Lobby lobby){
             this.lobby = lobby;
@@ -152,7 +160,6 @@
             this.gamePanel.setBorder(border);
 
             this.gamePanel.add(board);
-
 
             this.p1nameLabel.setFont(new Font("Futura", Font.BOLD,40));
             this.p1nameLabel.setBounds(250,865,300,80);
@@ -183,7 +190,19 @@
             this.p2timerLabel.setForeground(Color.BLUE);
             this.p2timerLabel.setText(p2TimeLeft + "");
 
+            this.backButton.setFocusable(false);
+            this.backButton.setBorder(BorderFactory.createEtchedBorder());
+            this.backButton.setBackground(Color.white);
+            this.backButton.setBounds(1065,425, 200, 100);
+            this.backButton.setBorder(border);
+            this.backButton.setFont(new Font("Futura", Font.BOLD, 30));
+            this.backButton.addActionListener(this);
+            this.backButton.setForeground(Color.BLACK);
+
             createTimers();
+
+
+            this.turnIndicator.setBounds(100,430, 80,80);
 
             this.gameFrame.add(gamePanel);
             this.gameFrame.add(p1nameLabel);
@@ -192,11 +211,21 @@
             this.gameFrame.add(p2piecesLabel);
             this.gameFrame.add(p1timerLabel);
             this.gameFrame.add(p2timerLabel);
+            this.gameFrame.add(turnIndicator);
+            this.gameFrame.add(backButton);
 
             this.gameFrame.setVisible(true);
 
             if(lobby.p1.isTurn()){
                 blueTurn = false;
+            }
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource() == this.backButton){
+                gameFrame.dispose();
+                new Lobby();
             }
         }
     }
