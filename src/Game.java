@@ -45,6 +45,8 @@
                 }else if(p2pieces == 0){
                     p1winner = true;
                 }
+                p1timer.stop();
+                p2timer.stop();
                 showEndScreen();
             }
         }
@@ -57,6 +59,8 @@
                 }else if(!redHasMoves){
                     p2winner = true;
                 }
+                p1timer.stop();
+                p2timer.stop();
                 showEndScreen();
             }
         }

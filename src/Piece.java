@@ -58,9 +58,50 @@ public class Piece {
         ){
             moves.add(new Move(x + 2,y + side * 2, new ArrayList<>(List.of(new Move(x + 1,y + side)))));
         }
-        if(isKing){
+        return moves;
+    }
 
+
+    public ArrayList<Move> generateKingMoves(Board board, int x, int y) {
+        int[][] directions = {
+                {1, 1},   // up right
+                {1, -1},  // down right
+                {-1, 1},  // up left
+                {-1, -1}  // down left
+        };
+
+        ArrayList<Move> moves = new ArrayList<>();
+        PieceColor currentPieceColor = this.getPieceColor();
+
+        for (int[] direction : directions) {
+            int dx = direction[0];
+            int dy = direction[1];
+
+            int newX = x + dx;
+            int newY = y + dy;
+
+            boolean canMoveFurther = true;
+
+            while (Board.isMoveValid(newX, newY) && canMoveFurther) {
+                Piece piece = board.getBoard()[newY][newX];
+
+                if (piece == null) {
+                    moves.add(new Move(newX, newY));
+                } else {
+                    if (piece.getPieceColor() != currentPieceColor && Board.isMoveValid(newX + dx, newY + dy)) {
+                        if(board.getBoard()[newY + dy][newX + dx] == null){
+                                moves.add(new Move(newX + dx, newY + dy, new ArrayList<>(List.of(new Move(newX,newY)))));
+                                newX += dx;
+                                newY += dy;
+                        }
+                    }
+                    canMoveFurther = false;
+                }
+                newX += dx;
+                newY += dy;
+            }
         }
         return moves;
     }
+
 }

@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Board extends JPanel {
@@ -85,17 +86,28 @@ public class Board extends JPanel {
                 int boardx = e.getX() / TILESIZE;
                 int boardy = e.getY() / TILESIZE;
                 Piece piece = board[boardy][boardx];
+
                 if (piece != null) {
-                    if (piece.getPieceColor() == PieceColor.BLUE && game.blueTurn) {
+                    if (piece.getPieceColor() == PieceColor.BLUE && game.blueTurn && !piece.isKing()) {
                         game.hasSelected = true;
                         game.selectedx = boardx;
                         game.selectedy = boardy;
                         game.availableMoves = piece.generateMoves(Board.this, boardx, boardy);
-                    } else if (piece.getPieceColor() == PieceColor.RED && !game.blueTurn) {
+                    } else if (piece.getPieceColor() == PieceColor.RED && !game.blueTurn&& !piece.isKing()) {
                         game.hasSelected = true;
                         game.selectedx = boardx;
                         game.selectedy = boardy;
                         game.availableMoves = piece.generateMoves(Board.this, boardx, boardy);
+                    } else if (piece.getPieceColor() == PieceColor.BLUE && game.blueTurn && piece.isKing()) {
+                        game.hasSelected = true;
+                        game.selectedx = boardx;
+                        game.selectedy = boardy;
+                        game.availableMoves = piece.generateKingMoves(Board.this, boardx, boardy);
+                    } else if (piece.getPieceColor() == PieceColor.RED && !game.blueTurn && piece.isKing()) {
+                        game.hasSelected = true;
+                        game.selectedx = boardx;
+                        game.selectedy = boardy;
+                        game.availableMoves = piece.generateKingMoves(Board.this, boardx, boardy);
                     }
 
                 } else {
@@ -108,7 +120,6 @@ public class Board extends JPanel {
                             if ((move.getY() == 0 && selectedPiece.getPieceColor() == PieceColor.RED) ||
                                     (move.getY() == BOARDSIZE - 1 && selectedPiece.getPieceColor() == PieceColor.BLUE)) {
                                 selectedPiece.setKing(true);
-                                System.out.println("KING");
                             }
                             for (Move deleted : move.deletedPlaces) {
                                 Piece capturedPiece = board[deleted.getY()][deleted.getX()];
