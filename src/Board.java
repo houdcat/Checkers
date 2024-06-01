@@ -126,6 +126,7 @@ public class Board extends JPanel {
                                 game.availableMoves = new ArrayList<Move>();
                                 game.hasSelected = false;
                                 game.blueTurn = !game.blueTurn;
+                                game.switchTurns();
                             }
                         }
                     }
