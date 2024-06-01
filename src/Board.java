@@ -1,26 +1,27 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
+/** Contains most of the logic for creating and drawing the board and its pieces*/
 public class Board extends JPanel {
-
+    /** The size of the board*/
     public static final int BOARDSIZE = 8;
+    /** The size of each individual board tile in pixels*/
     public static final int TILESIZE = 100;
+    /** A 2D array which represents the board*/
     private Piece[][] board = new Piece[BOARDSIZE][BOARDSIZE];
-
+    /** Returns board*/
     public Piece[][] getBoard() {
         return board;
     }
-
-    private boolean isDark(int x, int y){ //checks if piece is dark
+    /**Checks if piece is dark*/
+    private boolean isDark(int x, int y){
         return (y % 2 == 0) == (x % 2 != 0);
     }
-
-    private void createBoard() {    // initializes board
+    /** Initializes the board and puts pieces on it*/
+    private void createBoard() {
         for (int y = 0; y < BOARDSIZE; y++) {
             for (int x = 0; x< BOARDSIZE; x++) {
                 if(y <= 2 && isDark(x,y)){
@@ -31,10 +32,13 @@ public class Board extends JPanel {
             }
         }
     }
+    /** Checks if a move is within the bounds of the board
+     @return boolean of whether the move is valid or not
+     * */
     public static boolean isMoveValid(int x, int y){
         return x < BOARDSIZE && y < BOARDSIZE && x >= 0 && y >= 0;
     }
-
+    /** Gives pieces and squares their shape and color*/
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -76,6 +80,10 @@ public class Board extends JPanel {
     }
     Game game;
 
+    /** Initializes the board
+     * Ensures that the right pieces have their moves generated when they are clicked on
+     * Counts the amount of pieces left of each player
+     * Ensures the right player's turn*/
     public Board(Game game) {
         this.game = game;
         this.setLayout(new GridLayout(BOARDSIZE, BOARDSIZE));
@@ -88,22 +96,22 @@ public class Board extends JPanel {
                 Piece piece = board[boardy][boardx];
 
                 if (piece != null) {
-                    if (piece.getPieceColor() == PieceColor.BLUE && game.blueTurn && !piece.isKing()) {
+                    if (piece.getPieceColor() == PieceColor.BLUE && game.blueTurn && !piece.isKing()) { // generate moves for normal blue pieces
                         game.hasSelected = true;
                         game.selectedx = boardx;
                         game.selectedy = boardy;
                         game.availableMoves = piece.generateMoves(Board.this, boardx, boardy);
-                    } else if (piece.getPieceColor() == PieceColor.RED && !game.blueTurn&& !piece.isKing()) {
+                    } else if (piece.getPieceColor() == PieceColor.RED && !game.blueTurn&& !piece.isKing()) { // generate moves for normal red pieces
                         game.hasSelected = true;
                         game.selectedx = boardx;
                         game.selectedy = boardy;
                         game.availableMoves = piece.generateMoves(Board.this, boardx, boardy);
-                    } else if (piece.getPieceColor() == PieceColor.BLUE && game.blueTurn && piece.isKing()) {
+                    } else if (piece.getPieceColor() == PieceColor.BLUE && game.blueTurn && piece.isKing()) {// generate moves for king blue pieces
                         game.hasSelected = true;
                         game.selectedx = boardx;
                         game.selectedy = boardy;
                         game.availableMoves = piece.generateKingMoves(Board.this, boardx, boardy);
-                    } else if (piece.getPieceColor() == PieceColor.RED && !game.blueTurn && piece.isKing()) {
+                    } else if (piece.getPieceColor() == PieceColor.RED && !game.blueTurn && piece.isKing()) { // generate moves for king red pieces
                         game.hasSelected = true;
                         game.selectedx = boardx;
                         game.selectedy = boardy;
@@ -117,14 +125,14 @@ public class Board extends JPanel {
                             board[game.selectedy][game.selectedx] = null;
                             board[move.getY()][move.getX()] = selectedPiece;
 
-                            if ((move.getY() == 0 && selectedPiece.getPieceColor() == PieceColor.RED) ||
+                            if ((move.getY() == 0 && selectedPiece.getPieceColor() == PieceColor.RED) || // if a piece reaches the other side of the board it becomes a king
                                     (move.getY() == BOARDSIZE - 1 && selectedPiece.getPieceColor() == PieceColor.BLUE)) {
                                 selectedPiece.setKing(true);
                             }
                             for (Move deleted : move.deletedPlaces) {
                                 Piece capturedPiece = board[deleted.getY()][deleted.getX()];
                                 board[deleted.getY()][deleted.getX()] = null;
-                                if (capturedPiece != null) {
+                                if (capturedPiece != null) { // captures a piece and deducts amount of pieces from opposing player
                                     if (capturedPiece.getPieceColor() == PieceColor.RED) {
                                         game.p1pieces--;
                                         game.p1piecesLabel.setText(game.p1pieces + "");

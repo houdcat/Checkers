@@ -1,20 +1,35 @@
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+
+/**
+ * Creates the main menu and is the first class to load when the user executes the .jar file
+ * Leads to the rules, enables the user to exit out of the program and leads to the Lobby, where the player can start the game
+ */
 public class Menu implements ActionListener{
+    /**The menu's frame*/
+    private JFrame menuFrame = new JFrame("Checkers");
+    /**Button that shows the rules of Checkers*/
+    private JButton rulesButton = new JButton("Rules");
+    /**Button that closes the program*/
+    private JButton exitButton = new JButton("Exit");
+    /**Button that leads to the Lobby to create a new game*/
+    private JButton playButton = new JButton("Play");
+    /**Label for the title that appears at the top*/
+    private JLabel title = new JLabel("Checkers");
+    /**A black border that all buttons use*/
+    private Border border = new LineBorder(Color.BLACK, 3);
 
-    JFrame menuFrame = new JFrame("Checkers");
-    JButton rulesButton = new JButton("Rules");
-    JButton exitButton = new JButton("Exit");
-    JButton playButton = new JButton("Play");
-    JLabel title = new JLabel("Checkers");
-    Border border = new LineBorder(Color.BLACK, 3);
 
 
+    /**Constructor that initializes all components of the menu*/
     Menu(){
         this.menuFrame.setSize(750, 750);
         this.menuFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -65,16 +80,18 @@ public class Menu implements ActionListener{
         this.menuFrame.add(title);
 
         this.menuFrame.setVisible(true);
+
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==rulesButton){
-            menuFrame.dispose();
-            new Rules();
+            menuFrame.dispose(); // Close menu
+            new Rules(); // Open rules
         }else if(e.getSource()==playButton){
-            menuFrame.dispose();
-            new Lobby();
+            menuFrame.dispose(); // Close menu
+            new Lobby(); // Create new Lobby
         }
     }
 }

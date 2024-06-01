@@ -5,10 +5,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Rules implements ActionListener { // menu for rules
+/**Has text that contains the rules of the game*/
+public class Rules implements ActionListener {
+    /**The rules' frame*/
     JFrame rulesFrame = new JFrame("Checkers");
+    /**Closes Rules and opens Menu*/
     JButton backButton = new JButton("Back to main menu");
+    /**Title at the top of the screens*/
     JLabel rulesLabel = new JLabel("Rules");
+    /**Text with rules*/
     JLabel rulesBlock = new JLabel();
 
     Rules(){

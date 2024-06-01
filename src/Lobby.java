@@ -6,33 +6,53 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+/**Lets the users change game settings*/
 public class Lobby implements ActionListener {
-    JFrame lobbyFrame = new JFrame("Checkers"); // JFrame for Game Settings menu/lobby
-    JButton player1button = new JButton("Choose Name"); // Button to choose the name of Player 1
-    JButton player2button = new JButton("Choose Name"); // Button to choose the name of Player 2
-    JLabel gameSettings = new JLabel("Game Settings"); // Title of the section
-    JLabel red = new JLabel("Red"); // Red label
-    JLabel blue = new JLabel("Blue"); // Blue label
-    Border border = new LineBorder(Color.BLACK, 3); // Border used for all buttons
-    JRadioButton player1checkbox = new JRadioButton ();// Checkbox for first turn for player 1
-    JRadioButton  player2checkbox = new JRadioButton ();// Checkbox for first turn for player 2
-    ButtonGroup turnChoice = new ButtonGroup(); // Button group for radio buttons used to pick the first turn, so that only one may be picked
-    JLabel player1turn = new JLabel("First turn"); // Label indicating that Player 1 will be starting
-    JLabel player2turn = new JLabel("First turn"); // Label indicating that Player 2 will be starting
-    JButton backButton = new JButton("Back"); // Button to exit back to menu
-    JButton startButton = new JButton("Start Game"); // Starts the game
-    JButton coinflipButton = new JButton("Decide first turn randomly"); // Decides the first turn randomly
-    Random r = new Random();
+    /** JFrame for Game Settings menu/lobby*/
+    private JFrame lobbyFrame = new JFrame("Checkers");
+    /** Button to choose the name of Player 1*/
+    private JButton player1button = new JButton("Choose Name");
+    /** Button to choose the name of Player 2*/
+    private JButton player2button = new JButton("Choose Name");
+    /** Title of the section*/
+    private JLabel gameSettings = new JLabel("Game Settings");
+    /** Red label*/
+    private JLabel red = new JLabel("Red");
+    /** Blue label*/
+    private JLabel blue = new JLabel("Blue");
+    /** Border used for all buttons*/
+    private Border border = new LineBorder(Color.BLACK, 3);
+    /** Checkbox for first turn for player 1*/
+    private JRadioButton player1checkbox = new JRadioButton ();
+    /**  Checkbox for first turn for player 2*/
+    private JRadioButton  player2checkbox = new JRadioButton ();
+    /** Button group for radio buttons used to pick the first turn, so that only one may be picked*/
+    private ButtonGroup turnChoice = new ButtonGroup();
+    /** Label indicating that Player 1 will be starting*/
+    private JLabel player1turn = new JLabel("First turn");
+    /** Label indicating that Player 2 will be starting*/
+    private JLabel player2turn = new JLabel("First turn");
+    /** Button to exit back to menu*/
+    private JButton backButton = new JButton("Back");
+    /** Starts the game*/
+    private JButton startButton = new JButton("Start Game");
+    /** Decides the first turn by random*/
+    private JButton coinflipButton = new JButton("Decide first turn randomly");
+    /** Used for deciding the first turn randomly*/
+    private Random r = new Random();
+
 
     Player p1 = new Player("", false);
     Player p2 = new Player("", false);
 
-
+    /** Name of player 1*/
     String p1name = "Player 1";
+    /** Name of player 2*/
     String p2name = "Player 2";
 
-
+    /** Image for the unchecked box for player turns*/
     ImageIcon emptyCircle = new ImageIcon(new ImageIcon("src\\Images\\empty_circle.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));
+    /** Image for the checked box for player turns*/
     ImageIcon fullCircle = new ImageIcon(new ImageIcon("src\\Images\\full_circle.png").getImage().getScaledInstance(40,40, Image.SCALE_SMOOTH));;
 
     Lobby(){
@@ -140,12 +160,12 @@ public class Lobby implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == player1button) {
             p1name = JOptionPane.showInputDialog(null, "Name:", p1name);
-            if (p1name != null && p1name.matches("^[a-zA-Z0-9](?:[a-zA-Z0-9 ]{0,13}[a-zA-Z0-9])?$")) {
+            if (p1name != null && p1name.matches("^[a-zA-Z0-9](?:[a-zA-Z0-9 ]{0,13}[a-zA-Z0-9])?$")) { // Player names must only contain English letters, numbers and spaces in between words. They must be a maximum of 15 letters long
                 this.p1.setName(p1name);
                 player1button.setText(p1name);
             } else if (p1name != null) {
                 JOptionPane.showMessageDialog(null, "Invalid Name");
-                p1name = "Player 1";
+                p1name = "Player 1";  // The default name is Player 1 or Player 2
             }
         } else if (e.getSource() == player2button) {
             p2name = JOptionPane.showInputDialog(null, "Name:", p2name);

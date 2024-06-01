@@ -5,29 +5,45 @@
     import java.awt.event.ActionEvent;
     import java.awt.event.ActionListener;
     import java.util.ArrayList;
-
+    /**Contains the actual game that is being played*/
     public class Game implements ActionListener {
-        JFrame gameFrame = new JFrame("Checkers");
-        JPanel gamePanel = new JPanel();
-        Border border = new LineBorder(Color.BLACK, 3); // Border used for all buttons
-        Board board = new Board(this);
-        JLabel p1nameLabel = new JLabel();
-        JLabel p2nameLabel = new JLabel();
+        /**Frame of the game*/
+        private JFrame gameFrame = new JFrame("Checkers");
+        /**Contains the board*/
+        private JPanel gamePanel = new JPanel();
+        /**Border used for all buttons*/
+        private Border border = new LineBorder(Color.BLACK, 3);
+        /**The board that is being played on*/
+        private Board board = new Board(this);
+        /**Name of player 1 as seen on the bottom left of the jpanel*/
+        private JLabel p1nameLabel = new JLabel();
+        /**Name of player 2 as seen on the bottom left of the jpanel*/
+        private JLabel p2nameLabel = new JLabel();
 
+        /**Amount of pieces that player 1 has left*/
         int p1pieces = 12;
+        /**Amount of pieces that player 2 has left*/
         int p2pieces = 12;
-        boolean p1winner = false;
-        boolean p2winner = false;
+        /**Status of player 1 winning*/
+        private boolean p1winner = false;
+        /**Status of player 2 winning*/
+        private boolean p2winner = false;
 
+        /**Label for the amount of pieces player 1 has left*/
         JLabel p1piecesLabel = new JLabel(p1pieces + "");
+        /**Label for the amount of pieces player 2 has left*/
         JLabel p2piecesLabel = new JLabel(p2pieces + "");
-
+        /**Label that changes colors based on whose turn it is*/
         JLabel turnIndicator = new JLabel();
-        ImageIcon p1turnIndicatorImage = new ImageIcon(new ImageIcon("src\\Images\\red_turn.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
-        ImageIcon p2turnIndicatorImage = new ImageIcon(new ImageIcon("src\\Images\\blue_turn.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+        /**The turn indicator image for player 1 (red)*/
+        private ImageIcon p1turnIndicatorImage = new ImageIcon(new ImageIcon("src\\Images\\red_turn.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+        /**The turn indicator image for player 1 (blue)*/
+        private ImageIcon p2turnIndicatorImage = new ImageIcon(new ImageIcon("src\\Images\\blue_turn.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
 
-        JButton backButton = new JButton("End Game");
+        /**Ends the game with no real winner*/
+        private JButton backButton = new JButton("End Game");
 
+        /**The final screen which shows which player won and gives the option of a rematch*/
         public void showEndScreen(){
             int answer = 0;
             if(p1winner){
@@ -43,6 +59,7 @@
                 new Lobby();
             }
         }
+        /**Checks which player has lost all their pieces and shows the end screen*/
         public void checkVictoryByElimination(){
             if(p1pieces == 0 || p2pieces == 0){
                 if(p1pieces == 0){
@@ -55,6 +72,7 @@
                 showEndScreen();
             }
         }
+        /**Checks which player has no more moves available and shows the end screen*/
         public void checkVictoryByNoMoves(){
             boolean blueHasMoves = hasAvailableMoves(PieceColor.BLUE);
             boolean redHasMoves = hasAvailableMoves(PieceColor.RED);
@@ -69,6 +87,10 @@
                 showEndScreen();
             }
         }
+        /**Checks if either player has no more moves available
+         @param color of the selected piece
+         @return boolean of whether there are any available moves
+         * */
         public boolean hasAvailableMoves(PieceColor color) {
             for (int y = 0; y < Board.BOARDSIZE; y++) {
                 for (int x = 0; x < Board.BOARDSIZE; x++) {
@@ -86,21 +108,30 @@
 
         Lobby lobby;
 
+        /**Used as indicator of either player's turn. If blueTurn = false then it is player 1's turn (red)*/
         boolean blueTurn = false;
+        /**Flag for if a piece has been selected*/
         boolean hasSelected;
+        /**x coordinate of the selected piece*/
         int selectedx;
+        /**y coordinate of the selected piece*/
         int selectedy;
+        /**ArrayList of all available moves for the chosen piece*/
         ArrayList<Move> availableMoves = new ArrayList<>();
 
+        /**Renders the timer of player 1*/
         JLabel p1timerLabel = new JLabel();
+        /**Renders the timer of player 2*/
         JLabel p2timerLabel = new JLabel();
 
+        /**The amount of time player 1 has left before they lose*/
         int p1TimeLeft = 300;
+        /**The amount of time player 2 has left before they lose*/
         int p2TimeLeft = 300;
 
         Timer p1timer;
         Timer p2timer;
-
+        /**Creates timers for both players. Ends game if either runs out. Sets first turn indicator images*/
         public void createTimers() {
             p1timer = new Timer(1000, e -> {
                 p1TimeLeft--;
@@ -131,6 +162,7 @@
                 turnIndicator.setIcon(p1turnIndicatorImage);
             }
         }
+        /**Switches timers and turn indicator images */
         public void switchTurns() {
             if (blueTurn) {
                 p1timer.stop();
@@ -142,7 +174,7 @@
                 turnIndicator.setIcon(p1turnIndicatorImage);
             }
         }
-
+        /**Creates a new game*/
         Game(Lobby lobby){
             this.lobby = lobby;
 

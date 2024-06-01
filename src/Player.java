@@ -1,5 +1,8 @@
+/**One of two players*/
 public class Player {
+    /**The name of a player*/
     private String name;
+    /**Determines if it is the player's turn*/
     private boolean isTurn;
 
 

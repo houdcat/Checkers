@@ -1,26 +1,30 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/** Holds logic for generating piece moves and information about said pieces*/
 public class Piece {
+    /**Color of a piece, may be RED or BLUE*/
     private PieceColor color;
+    /**Boolean for whether a piece is a king or a regular man*/
     private boolean isKing;
+    /**The Color red used for pieces*/
     private static Color colorRed = new Color(249, 88, 105);
+    /**The Color blue used for pieces*/
     private static Color colorBlue = new Color(88, 99, 249);
 
     public void setKing(boolean king) {
         isKing = king;
     }
-
+    /**@return if a piece is a king*/
     public boolean isKing() {
         return isKing;
     }
-
+    /**Initialize piece when first loading board*/
     public Piece(PieceColor color) {
         this.color = color;
         this.isKing = false;
     }
-
+    /**Give a piece's technically defined color an actual color*/
     public Color getColor() {
         if(this.color == PieceColor.RED){
             return colorRed;
@@ -28,9 +32,16 @@ public class Piece {
             return colorBlue;
         }
     }
+    /**@return a piece's technical color*/
     public PieceColor getPieceColor(){
         return this.color;
     }
+    /**Generates all possible moves for a regular piece and returns them as an ArrayList
+     * @param board the board
+     * @param x x of the possible move
+     * @param y y of the possible move
+     * @return moves ArrayList of all possible moves of the selected piece
+     * */
     public ArrayList<Move> generateMoves(Board board, int x, int y){
         int side;
         ArrayList<Move> moves = new ArrayList<>();
@@ -61,7 +72,12 @@ public class Piece {
         return moves;
     }
 
-
+    /**Generates all possible moves for a king piece and returns them as an ArrayList
+     * @param board the board
+     * @param x x of the possible move
+     * @param y y of the possible move
+     * @return moves ArrayList of all possible moves of the selected piece
+     */
     public ArrayList<Move> generateKingMoves(Board board, int x, int y) {
         int[][] directions = {
                 {1, 1},   // up right
